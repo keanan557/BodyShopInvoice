@@ -160,6 +160,34 @@
       <td><input type="text" name="rate1" placeholder="Enter Rate(ZAR)"></td>
       <td><input type="text" name="total1" placeholder="Enter Total"></td>
     </tr>
+    <tr>
+      <td colspan="3" style="text-align: right; font-weight: bold;">Total Labour:</td>
+      <td><input type="text" name="totalLabour" placeholder="Enter Total Labour" readonly></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Parts Table -->
+<table>
+  <thead>
+    <tr>
+      <th>Materials/Parts Desc</th>
+      <th>Quantity</th>
+      <th>Cost</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody id="partsTableBody">
+    <tr>
+      <td><input type="text" name="partDesc1" placeholder="Enter Material/Part Description"></td>
+      <td><input type="number" name="quantity1" placeholder="Enter Quantity" min="1"></td>
+      <td><input type="number" name="cost1" placeholder="Enter Cost (ZAR)" step="0.01"></td>
+      <td><input type="text" name="total1" placeholder="Enter Total" readonly></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="text-align: right; font-weight: bold;">Total Parts:</td>
+      <td><input type="text" name="totalParts" placeholder="Enter Total Parts" readonly></td>
+    </tr>
   </tbody>
 </table>
 
@@ -170,93 +198,156 @@
 <button type="button" onclick="downloadPDF()">Download PDF</button>
 
 <script>
-  function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+	function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
 
-    // Set font and styling
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(12);
+  // Set font and styling
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(12);
 
-    // Header: Centered and with Border
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.text("Body Shop Invoice", 105, 20, { align: 'center' });
-    doc.setLineWidth(0.5);
-    doc.rect(10, 10, 190, 280); // Border around the page
+  // Header: Centered and with Border
+  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold');
+  doc.text("Body Shop Invoice", 105, 20, { align: 'center' });
+  doc.setLineWidth(0.5);
+  doc.rect(10, 10, 190, 280); // Border around the page
 
-    // Company Information
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text("Company Information", 105, 30, { align: 'center' });
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Company: ${document.getElementById('companyName').value}`, 14, 40);
-    doc.text(`Address: ${document.getElementById('address').value}`, 14, 50);
-    doc.text(`City: ${document.getElementById('city').value}`, 14, 60);
-    doc.text(`Zip: ${document.getElementById('zip').value}`, 14, 70);
-    doc.text(`Date: ${document.getElementById('date').value}`, 14, 80);
-    doc.text(`Time In: ${document.getElementById('timeIn').value}`, 14, 90);
-    doc.text(`Invoice #: ${document.getElementById('invoiceNumber').value}`, 14, 100);
+  // Company Information
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text("Company Information", 105, 30, { align: 'center' });
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Company: ${document.getElementById('companyName').value}`, 14, 40);
+  doc.text(`Address: ${document.getElementById('address').value}`, 14, 50);
+  doc.text(`City: ${document.getElementById('city').value}`, 14, 60);
+  doc.text(`Zip: ${document.getElementById('zip').value}`, 14, 70);
+  doc.text(`Date: ${document.getElementById('date').value}`, 14, 80);
+  doc.text(`Time In: ${document.getElementById('timeIn').value}`, 14, 90);
+  doc.text(`Invoice #: ${document.getElementById('invoiceNumber').value}`, 14, 100);
 
-    // Insurance Information
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text("Insurance Information", 105, 110, { align: 'center' });
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Name: ${document.getElementById('insuranceName').value}`, 14, 120);
-    doc.text(`Address: ${document.getElementById('insuranceAddress').value}`, 14, 130);
-    doc.text(`City: ${document.getElementById('insuranceCity').value}`, 14, 140);
-    doc.text(`Cell: ${document.getElementById('insuranceCell').value}`, 14, 150);
-    doc.text(`Company: ${document.getElementById('insuranceCompany').value}`, 14, 160);
-    doc.text(`Claim #: ${document.getElementById('claimNumber').value}`, 14, 170);
+  // Insurance Information
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text("Insurance Information", 105, 110, { align: 'center' });
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Name: ${document.getElementById('insuranceName').value}`, 14, 120);
+  doc.text(`Address: ${document.getElementById('insuranceAddress').value}`, 14, 130);
+  doc.text(`City: ${document.getElementById('insuranceCity').value}`, 14, 140);
+  doc.text(`Cell: ${document.getElementById('insuranceCell').value}`, 14, 150);
+  doc.text(`Company: ${document.getElementById('insuranceCompany').value}`, 14, 160);
+  doc.text(`Claim #: ${document.getElementById('claimNumber').value}`, 14, 170);
 
-    // Vehicle Table
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text("Vehicle Information", 105, 180, { align: 'center' });
-    doc.setFont('helvetica', 'normal');
-    const vehicleTable = document.getElementById('vehicleTableBody');
-    let yOffset = 190;
-    for (let row of vehicleTable.rows) {
-      const plate = row.cells[0].firstChild.value;
-      const year = row.cells[1].firstChild.value;
-      const make = row.cells[2].firstChild.value;
-      const model = row.cells[3].firstChild.value;
-      const color = row.cells[4].firstChild.value;
+  // Vehicle Table
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text("Vehicle Information", 105, 180, { align: 'center' });
+  let yOffset = 190;
+  const vehicleTable = document.getElementById('vehicleTableBody');
+  for (let row of vehicleTable.rows) {
+    if (row.cells.length >= 5) {
+      const plateInput = row.cells[0].querySelector('input');
+      const yearInput = row.cells[1].querySelector('input');
+      const makeInput = row.cells[2].querySelector('input');
+      const modelInput = row.cells[3].querySelector('input');
+      const colorInput = row.cells[4].querySelector('input');
+
+      // Ensure the input elements exist and get their values
+      const plate = plateInput ? plateInput.value : '';
+      const year = yearInput ? yearInput.value : '';
+      const make = makeInput ? makeInput.value : '';
+      const model = modelInput ? modelInput.value : '';
+      const color = colorInput ? colorInput.value : '';
+
       doc.text(`${plate} | ${year} | ${make} | ${model} | ${color}`, 14, yOffset);
       yOffset += 10;
     }
+  }
 
-    // Service Table
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text("Service Information", 105, yOffset, { align: 'center' });
-    yOffset += 10;
-    const serviceTable = document.getElementById('serviceTableBody');
-    for (let row of serviceTable.rows) {
-      const serviceDesc = row.cells[0].firstChild.value;
-      const hours = row.cells[1].firstChild.value;
-      const rate = row.cells[2].firstChild.value;
-      const total = row.cells[3].firstChild.value;
+  // Service Table
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text("Service Information", 105, yOffset, { align: 'center' });
+  yOffset += 10;
+  const serviceTable = document.getElementById('serviceTableBody');
+  for (let row of serviceTable.rows) {
+    if (row.cells.length >= 4) {
+      const serviceDescInput = row.cells[0].querySelector('input');
+      const hoursInput = row.cells[1].querySelector('input');
+      const rateInput = row.cells[2].querySelector('input');
+      const totalInput = row.cells[3].querySelector('input');
+
+      // Ensure the input elements exist and get their values
+      const serviceDesc = serviceDescInput ? serviceDescInput.value : '';
+      const hours = hoursInput ? hoursInput.value : '';
+      const rate = rateInput ? rateInput.value : '';
+      const total = totalInput ? totalInput.value : '';
+
       doc.text(`${serviceDesc} | ${hours} hours | ${rate} ZAR | ${total} ZAR`, 14, yOffset);
       yOffset += 10;
     }
-
-    // Notes Section
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'bold');
-    doc.text("Notes/Customer Requests", 105, yOffset, { align: 'center' });
-    doc.setFont('helvetica', 'normal');
-    const notes = document.getElementById('notes').value;
-    doc.text(notes, 14, yOffset + 10);
-
-    // Footer: Page Number at the bottom
-    doc.setFontSize(10);
-    doc.text("Page 1", 190, 285);
-
-    // Save PDF
-    doc.save('invoice.pdf');
   }
+
+  // Add Total Labour Row
+  const totalLabour = document.querySelector('input[name="totalLabour"]').value;
+  if (totalLabour) {
+    doc.setFont('helvetica', 'bold');
+    doc.text("Total Labour:", 14, yOffset);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`${totalLabour} ZAR`, 80, yOffset);
+    yOffset += 10;
+  }
+
+  // Parts Table
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text("Parts Information", 105, yOffset, { align: 'center' });
+  yOffset += 10;
+  const partsTable = document.getElementById('partsTableBody');
+  for (let row of partsTable.rows) {
+    if (row.cells.length >= 4) {
+      const partDescInput = row.cells[0].querySelector('input');
+      const quantityInput = row.cells[1].querySelector('input');
+      const costInput = row.cells[2].querySelector('input');
+      const partTotalInput = row.cells[3].querySelector('input');
+
+      // Ensure the input elements exist and get their values
+      const partDesc = partDescInput ? partDescInput.value : '';
+      const quantity = quantityInput ? quantityInput.value : '';
+      const cost = costInput ? costInput.value : '';
+      const partTotal = partTotalInput ? partTotalInput.value : '';
+
+      doc.text(`${partDesc} | ${quantity} | ${cost} ZAR | ${partTotal} ZAR`, 14, yOffset);
+      yOffset += 10;
+    }
+  }
+
+  // Add Total Parts Row
+  const totalParts = document.querySelector('input[name="totalParts"]').value;
+  if (totalParts) {
+    doc.setFont('helvetica', 'bold');
+    doc.text("Total Parts:", 14, yOffset);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`${totalParts} ZAR`, 80, yOffset);
+    yOffset += 10;
+  }
+
+  // Notes Section
+  doc.setFontSize(12);
+  doc.setFont('helvetica', 'bold');
+  doc.text("Notes/Customer Requests", 105, yOffset, { align: 'center' });
+  doc.setFont('helvetica', 'normal');
+  const notes = document.getElementById('notes').value;
+  doc.text(notes, 14, yOffset + 10);
+
+  // Footer: Page Number at the bottom
+  doc.setFontSize(10);
+  doc.text("Page 1", 190, 285);
+
+  // Save PDF
+  doc.save('invoice.pdf');
+}
+
 </script>
 
 </body>

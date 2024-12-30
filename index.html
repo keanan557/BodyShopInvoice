@@ -8,53 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    /* Styles for the form layout and aesthetics */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    h1 {
-      color: #2C3E50;
-    }
-    form {
-      margin-bottom: 20px;
-    }
-    label {
-      font-weight: bold;
-      margin-right: 10px;
-    }
-    input[type="text"], textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    table {
-      width: 100%;
-      margin-bottom: 20px;
-      border-collapse: collapse;
-    }
-    table th, table td {
-      padding: 8px;
-      text-align: left;
-      border: 1px solid #ddd;
-    }
-    table th {
-      background-color: #f4f4f4;
-      font-weight: bold;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2980b9;
-    }
+   
   </style>
 </head>
 <body>
@@ -122,6 +76,7 @@
 </form>
 
 <!-- Vehicle Table -->
+<!-- Vehicle Table -->
 <table>
   <thead>
     <tr>
@@ -134,11 +89,11 @@
   </thead>
   <tbody id="vehicleTableBody">
     <tr>
-      <td><input type="text" name="plate1" placeholder="Enter Plate"></td>
-      <td><input type="text" name="year1" placeholder="Enter Year"></td>
-      <td><input type="text" name="make1" placeholder="Enter Make"></td>
-      <td><input type="text" name="model1" placeholder="Enter Model"></td>
-      <td><input type="text" name="color1" placeholder="Enter Color"></td>
+      <td data-cell="plate"><input type="text" name="plate1" placeholder="Enter Plate"></td>
+      <td data-cell="year"><input type="text" name="year1" placeholder="Enter Year"></td>
+      <td data-cell="make"><input type="text" name="make1" placeholder="Enter Make"></td>
+      <td data-cell="model"><input type="text" name="model1" placeholder="Enter Model"></td>
+      <td data-cell="color"><input type="text" name="color1" placeholder="Enter Color"></td>
     </tr>
   </tbody>
 </table>
@@ -155,14 +110,14 @@
   </thead>
   <tbody id="serviceTableBody">
     <tr>
-      <td><input type="text" name="serviceDesc1" placeholder="Enter Service Desc"></td>
-      <td><input type="text" name="hours1" placeholder="Enter Hours"></td>
-      <td><input type="text" name="rate1" placeholder="Enter Rate(ZAR)"></td>
-      <td><input type="text" name="total1" placeholder="Enter Total"></td>
+      <td data-cell="service-desc"><input type="text" name="serviceDesc1" placeholder="Enter Service Desc"></td>
+      <td data-cell="hours"><input type="text" name="hours1" placeholder="Enter Hours"></td>
+      <td data-cell="rate"><input type="text" name="rate1" placeholder="Enter Rate(ZAR)"></td>
+      <td data-cell="total"><input type="text" name="total1" placeholder="Enter Total"></td>
     </tr>
     <tr>
-      <td colspan="3" style="text-align: right; font-weight: bold;">Total Labour:</td>
-      <td><input type="text" name="totalLabour" placeholder="Enter Total Labour" readonly></td>
+      <td colspan="3" style="text-align: right; font-weight: bold;" data-cell="total-labour-label">Total Labour:</td>
+      <td data-cell="total-labour"><input type="text" name="totalLabour" placeholder="Enter Total Labour" readonly></td>
     </tr>
   </tbody>
 </table>
@@ -179,17 +134,18 @@
   </thead>
   <tbody id="partsTableBody">
     <tr>
-      <td><input type="text" name="partDesc1" placeholder="Enter Material/Part Description"></td>
-      <td><input type="number" name="quantity1" placeholder="Enter Quantity" min="1"></td>
-      <td><input type="number" name="cost1" placeholder="Enter Cost (ZAR)" step="0.01"></td>
-      <td><input type="text" name="total1" placeholder="Enter Total" readonly></td>
+      <td data-cell="part-desc"><input type="text" name="partDesc1" placeholder="Enter Material/Part Description"></td>
+      <td data-cell="quantity"><input type="number" name="quantity1" placeholder="Enter Quantity" min="1"></td>
+      <td data-cell="cost"><input type="number" name="cost1" placeholder="Enter Cost (ZAR)" step="0.01"></td>
+      <td data-cell="part-total"><input type="text" name="total1" placeholder="Enter Total" readonly></td>
     </tr>
     <tr>
-      <td colspan="3" style="text-align: right; font-weight: bold;">Total Parts:</td>
-      <td><input type="text" name="totalParts" placeholder="Enter Total Parts" readonly></td>
+      <td colspan="3" style="text-align: right; font-weight: bold;" data-cell="total-parts-label">Total Parts:</td>
+      <td data-cell="total-parts"><input type="text" name="totalParts" placeholder="Enter Total Parts" readonly></td>
     </tr>
   </tbody>
 </table>
+
 
 <h2>Notes/Customer Requests</h2>
 <textarea id="notes" placeholder="Enter any notes or customer requests"></textarea>

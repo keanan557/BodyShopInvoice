@@ -1,4 +1,4 @@
-PulseFit Ecommerce Website
+Shaun's Panel & Spray
 
 [![Screenshot of Homepage](https://github.com/keanan557/bodyshop-invoice/tree/858c8e8bf4cd8ed062306378a558b6fc3547aaa1/img)](https://bodyshop-invoice.vercel.app/)
 

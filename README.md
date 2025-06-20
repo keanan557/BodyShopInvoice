@@ -4,13 +4,6 @@ Shaun's Panel & Spray
 
 
 BodyShop Invoice Generator for car mechanics and Panel Beaters.
-## Table of Contents
-- [Live Demo](#live-demo)
-- [Technologies Used](#technologies-used)
-- [Setup Instructions](#setup-instructions)
-- [Key Features](#key-features)
-- [Credits](#credits) (If Applicable)
-- [Author](#author)
 
 ## Live Demo
 [Link to the live deployed website](https://bodyshop-invoice.vercel.app/)
